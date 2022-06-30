@@ -1,0 +1,9 @@
+(function main() {
+    function def(){
+    console.log('Hello World!');
+    }
+    function abc(a){
+        a()
+    }
+    abc(def);
+}());
