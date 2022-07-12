@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <input type="text" id="text">
+        <button id="add" class="add">Add</button>
+        <div id="addItem">
+
+        </div>
+    </body>
+    <script>
+        var itemArray=[];
+        function addItem()
+        {
+            console.log("sfdf");
+            text=document.getElementById("text").value;
+            if(localStorage.getItem('itemJson')==null)
+            {
+                itemArray=[];
+                itemArray.push(text);
+                localStorage.setItem('itemJson',JSON.stringify(itemArray));
+
+            }
+            else
+            {
+                itemstr=localStorage.getItem('itemJson');
+                itemArray=JSON.parse(itemstr);
+                itemArray.push(text);
+                localStorage.setItem('itemJson',JSON.stringify(itemArray));
+            }
+            update();
+        }
+        addI=document.getElementById("add");
+        addI.addEventListener("click",addItem);
+        function update()
+        {
+            console.log("update call");
+            if(localStorage.getItem('itemJson')==null)
+            {
+                itemArray=[];
+                localStorage.setItem('itemJson',JSON.stringify(itemArray));
+            }
+            else
+            {
+                itemstr=localStorage.getItem('itemJson');
+                itemArray=JSON.parse(itemstr);
+            }
+            let addDiv=document.getElementById("addItem");
+                let str="";
+                itemArray.forEach((element,i) => {
+                    str += `
+                            ${i+1}
+                            ${element}
+                            <button id="btn" onclick="deleteI(${i})">Delete</button>
+                            <br>`;
+                });
+                addDiv.innerHTML=str;
+        }
+        update();
+        function deleteI(i)
+        {
+            itemstr=localStorage.getItem('itemJson');
+            itemArray=JSON.parse(itemstr);
+            itemArray.splice(i,1);
+            localStorage.setItem('itemJson',JSON.stringify(itemArray));
+            update();
+        }
+        
+
+    </script>
+</html>
